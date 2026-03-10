@@ -1,9 +1,11 @@
-import KeralaMap from "../components/KeralaMap";
+"use client";
+
+import dynamic from "next/dynamic";
+
+const KeralaMap = dynamic(() => import("../components/KeralaMap"), {
+  ssr: false,
+});
 
 export default function Page() {
-
-  return (
-    <KeralaMap />
-  );
-
+  return <KeralaMap />;
 }

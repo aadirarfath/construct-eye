@@ -13,6 +13,8 @@ import {
   Info,
   Zap,
   Loader2, // Added for the loading state
+  MessageSquare,
+  Send
 } from "lucide-react";
 
 export default function ContractorPage() {
@@ -21,6 +23,12 @@ export default function ContractorPage() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeploying, setIsDeploying] = useState(false); // New loading state
+
+  // Chatbot states
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState([]);
+  const [chatInput, setChatInput] = useState("");
+  const [isChatLoading, setIsChatLoading] = useState(false);
 
   const [form, setForm] = useState({
     project_name: "",
@@ -174,6 +182,48 @@ export default function ContractorPage() {
     setSelectedProject(updated.data);
   }
 
+  // Effect to reset chat when selected project changes
+  useEffect(() => {
+    if (selectedProject) {
+      setChatMessages([
+        { role: "assistant", content: `Hello! I am ready to answer questions about the DPR for ${selectedProject.project_name}. What would you like to know?` }
+      ]);
+    }
+  }, [selectedProject]);
+
+  async function handleChatSubmit(e) {
+    e.preventDefault();
+    if (!chatInput.trim() || !selectedProject) return;
+
+    const userMessage = chatInput;
+    setChatInput("");
+    setChatMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setIsChatLoading(true);
+
+    try {
+      const res = await fetch("/api/dpr-query", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          project_id: selectedProject.project_id,
+          query: userMessage,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setChatMessages((prev) => [...prev, { role: "assistant", content: data.answer }]);
+      } else {
+        setChatMessages((prev) => [...prev, { role: "assistant", content: `Error: ${data.error}` }]);
+      }
+    } catch (err) {
+      setChatMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I had trouble connecting to the server." }]);
+    } finally {
+      setIsChatLoading(false);
+    }
+  }
+
   return (
     <div className="flex h-screen bg-[#F5F9FC] overflow-hidden">
       {/* LEFT SIDEBAR */}
@@ -201,11 +251,10 @@ export default function ContractorPage() {
             <div
               key={project.project_id}
               onClick={() => setSelectedProject(project)}
-              className={`p-4 rounded-xl cursor-pointer transition-all border ${
-                selectedProject?.project_id === project.project_id
+              className={`p-4 rounded-xl cursor-pointer transition-all border ${selectedProject?.project_id === project.project_id
                   ? "bg-blue-500/20 border-blue-400 text-white"
                   : "bg-transparent border-transparent hover:bg-white/5 text-gray-300"
-              }`}
+                }`}
             >
               <h3 className="font-semibold truncate">{project.project_name}</h3>
               <p className="text-xs opacity-70 truncate">{project.location}</p>
@@ -362,8 +411,8 @@ export default function ContractorPage() {
 
                       let imageUrl = photo.storage_path
                         ? supabase.storage
-                            .from("project-photos")
-                            .getPublicUrl(photo.storage_path).data.publicUrl
+                          .from("project-photos")
+                          .getPublicUrl(photo.storage_path).data.publicUrl
                         : photo.url;
 
                       if (!imageUrl) return null;
@@ -432,6 +481,85 @@ export default function ContractorPage() {
           </div>
         )}
       </main>
+
+      {/* CHATBOT WIDGET */}
+      {selectedProject && (
+        <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end">
+          {/* Chat Window */}
+          {isChatOpen && (
+            <div className="bg-white border border-gray-200 shadow-2xl rounded-2xl w-80 sm:w-96 h-[32rem] mb-4 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in-50">
+              <div className="bg-[#001F3F] text-white p-4 flex justify-between items-center shadow-md pb-4 shrink-0 rounded-t-2xl">
+                <div>
+                  <h3 className="font-bold flex items-center gap-2 text-sm">
+                    <Zap size={16} className="fill-blue-400 text-blue-400" /> DPR Assistant
+                  </h3>
+                  <p className="text-[10px] text-gray-300 opacity-80 mt-1 truncate max-w-[200px]">{selectedProject.project_name}</p>
+                </div>
+                <button
+                  onClick={() => setIsChatOpen(false)}
+                  className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 flex flex-col">
+                {chatMessages.map((msg, i) => (
+                  <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div
+                      className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-sm ${msg.role === 'user'
+                          ? 'bg-blue-600 text-white rounded-br-sm'
+                          : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
+                        }`}
+                    >
+                      {msg.content}
+                    </div>
+                  </div>
+                ))}
+                {isChatLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-gray-200 text-gray-500 rounded-2xl rounded-bl-sm p-3 shadow-sm flex items-center gap-2">
+                      <Loader2 size={14} className="animate-spin" /> <span className="text-xs">Analyzing DPR...</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <form onSubmit={handleChatSubmit} className="p-3 bg-white border-t border-gray-100 flex gap-2 w-full mt-auto rounded-b-2xl">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  placeholder="Ask about the DPR..."
+                  className="flex-1 bg-gray-100 border-transparent focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm rounded-xl px-4 py-2 outline-none transition-all shadow-inner"
+                  disabled={isChatLoading}
+                />
+                <button
+                  type="submit"
+                  disabled={isChatLoading || !chatInput.trim()}
+                  className="bg-blue-600 text-white p-2.5 rounded-xl hover:bg-blue-700 disabled:opacity-50 transition-colors shadow-sm shrink-0"
+                >
+                  <Send size={16} />
+                </button>
+              </form>
+            </div>
+          )}
+
+          {/* Floating Chat Button */}
+          <button
+            onClick={() => setIsChatOpen(!isChatOpen)}
+            className={`${isChatOpen ? 'bg-gray-800 hover:bg-gray-900' : 'bg-blue-600 hover:bg-blue-700'} text-white shadow-xl shadow-blue-500/20 p-4 rounded-full transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-blue-300 relative`}
+          >
+            <MessageSquare size={26} className="group-hover:animate-pulse" />
+            {!isChatOpen && (
+              <span className="absolute -top-1 -right-1 flex h-4 w-4">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-300 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white"></span>
+              </span>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* NEW PROJECT MODAL */}
       {isModalOpen && (
