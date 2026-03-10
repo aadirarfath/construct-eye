@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, ChevronRight } from "lucide-react";
+import { MapPin, ChevronRight, AlertTriangle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabase";
+import ReportIssueModal from "../components/ReportIssueModal";
 
 export default function ProjectsPage() {
   const [districts, setDistricts] = useState([]);
   const [counts, setCounts] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchDistricts();
@@ -46,16 +48,24 @@ export default function ProjectsPage() {
     <div className="min-h-screen bg-[#F5F9FC] pt-32 pb-20 px-8">
       {/* HEADER */}
 
-      <div className="max-w-7xl mx-auto mb-14">
-        <p className="text-[#4B8BBE] text-sm mb-2">Infrastructure Monitoring</p>
+      <div className="max-w-7xl mx-auto mb-14 flex justify-between items-end">
+        <div>
+          <p className="text-[#4B8BBE] text-sm mb-2">Infrastructure Monitoring</p>
+          <h1 className="text-4xl font-bold text-[#001F3F] mb-2">
+            District Command Center
+          </h1>
+          <p className="text-gray-600">
+            Select a district to view and monitor public infrastructure projects
+          </p>
+        </div>
 
-        <h1 className="text-4xl font-bold text-[#001F3F] mb-2">
-          District Command Center
-        </h1>
-
-        <p className="text-gray-600">
-          Select a district to view and monitor public infrastructure projects
-        </p>
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="bg-white border-2 border-[#0A4D92] text-[#0A4D92] px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-[#0A4D92] hover:text-white transition-all shadow-sm active:scale-95"
+        >
+          <AlertTriangle size={20} />
+          Report Issue
+        </button>
       </div>
 
       {/* GRID */}
@@ -160,6 +170,11 @@ transition
           </Link>
         ))}
       </div>
+
+      <ReportIssueModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   );
 }
