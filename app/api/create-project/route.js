@@ -1,171 +1,170 @@
 import { supabase } from "../../../lib/supabase";
 import { extractPdfText } from "../../../lib/pdfExtractor";
-import { generateTimeline } from "../../../lib/gemini";
+import { generateTimeline, summarizeDpr } from "../../../lib/gemini";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(req) {
 
-try {
+    try {
 
-// =============================
-// 1. Read form data
-// =============================
+        // =============================
+        // 1. Read form data
+        // =============================
 
-const formData = await req.formData();
+        const formData = await req.formData();
 
-const projectId = formData.get("project_id");
-const pdfFile = formData.get("pdf");
-const start = formData.get("start_date");
-const end = formData.get("end_date");
-const budget = formData.get("budget") || "unknown";
+        const projectId = formData.get("project_id");
+        const pdfFile = formData.get("pdf");
+        const start = formData.get("start_date");
+        const end = formData.get("end_date");
+        const budget = formData.get("budget") || "unknown";
 
 
-if (!projectId || !pdfFile || !start || !end) {
+        if (!projectId || !pdfFile || !start || !end) {
 
-return Response.json({
+            return Response.json({
 
-success: false,
-error: "Missing required fields"
+                success: false,
+                error: "Missing required fields"
 
-}, { status: 400 });
+            }, { status: 400 });
 
-}
+        }
 
 
-// =============================
-// 2. Convert PDF to buffer
-// =============================
+        // =============================
+        // 2. Convert PDF to buffer
+        // =============================
 
-const buffer = Buffer.from(
-await pdfFile.arrayBuffer()
-);
+        const buffer = Buffer.from(
+            await pdfFile.arrayBuffer()
+        );
 
 
-// =============================
-// 3. Extract PDF text
-// =============================
+        // =============================
+        // 3. Extract PDF text
+        // =============================
 
-const text = await extractPdfText(buffer);
+        const text = await extractPdfText(buffer);
+        console.log("PDF extraction length:", text ? text.length : 0);
 
-if (!text || text.length < 50) {
+        if (!text || text.length < 10) {
+            console.warn("PDF text extraction returned very little or no text. Falling back.");
+        }
 
-return Response.json({
 
-success: false,
-error: "PDF text extraction failed"
+        // =============================
+        // 4. Calculate duration
+        // =============================
 
-}, { status: 500 });
+        const months = Math.abs(
 
-}
+            (new Date(end) - new Date(start))
 
+            / (1000 * 60 * 60 * 24 * 30)
 
-// =============================
-// 4. Calculate duration
-// =============================
+        );
 
-const months = Math.abs(
+        const duration = `${months.toFixed(1)} months`;
 
-(new Date(end) - new Date(start))
 
-/ (1000 * 60 * 60 * 24 * 30)
+        // =============================
+        // 5. Generate AI timeline
+        // =============================
 
-);
+        const aiResult = await generateTimeline(
 
-const duration = `${months.toFixed(1)} months`;
+            text,
+            duration,
+            budget
 
+        );
 
-// =============================
-// 5. Generate AI timeline
-// =============================
 
-const aiResult = await generateTimeline(
+        if (!aiResult) {
 
-text,
-duration,
-budget
+            return Response.json({
 
-);
+                success: false,
+                error: "AI timeline generation failed"
 
+            }, { status: 500 });
 
-if (!aiResult) {
+        }
 
-return Response.json({
 
-success: false,
-error: "AI timeline generation failed"
+        // =============================
+        // 6. Generate Summary & Update database
+        // =============================
 
-}, { status: 500 });
+        const dprSummary = await summarizeDpr(text);
 
-}
+        const { error: updateError } = await supabase
 
+            .from("contractor_projects")
 
-// =============================
-// 6. Update database
-// =============================
+            .update({
 
-const { error: updateError } = await supabase
+                contractor_report_timeline: aiResult.timeline,
 
-.from("contractor_projects")
+                gemini_suggestions: {
 
-.update({
+                    feasible: aiResult.feasible,
+                    suggestion: aiResult.suggestion
 
-contractor_report_timeline: aiResult.timeline,
+                },
 
-gemini_suggestions: {
+                dpr_text: dprSummary
 
-feasible: aiResult.feasible,
-suggestion: aiResult.suggestion
+            })
 
-}
+            .eq("project_id", projectId);
 
-})
 
-.eq("project_id", projectId);
+        if (updateError) {
 
+            console.error("DB update error:", updateError);
 
-if (updateError) {
+            return Response.json({
 
-console.error("DB update error:", updateError);
+                success: false,
+                error: updateError.message
 
-return Response.json({
+            }, { status: 500 });
 
-success: false,
-error: updateError.message
+        }
 
-}, { status: 500 });
 
-}
+        // =============================
+        // 7. Return success
+        // =============================
 
+        return Response.json({
 
-// =============================
-// 7. Return success
-// =============================
+            success: true,
 
-return Response.json({
+            timeline: aiResult.timeline,
 
-success: true,
+            suggestion: aiResult.suggestion
 
-timeline: aiResult.timeline,
+        });
 
-suggestion: aiResult.suggestion
 
-});
+    }
 
+    catch (error) {
 
-}
+        console.error("Create project error:", error);
 
-catch (error) {
+        return Response.json({
 
-console.error("Create project error:", error);
+            success: false,
+            error: error.message
 
-return Response.json({
+        }, { status: 500 });
 
-success: false,
-error: error.message
-
-}, { status: 500 });
-
-}
+    }
 
 }
