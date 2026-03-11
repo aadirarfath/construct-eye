@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import "leaflet/dist/leaflet.css";
 
 export const metadata = {
-  title: "e-Nirikshan",
+  title: "Construct-Eye",
   description: "Public Project Transparency Portal",
 };
 

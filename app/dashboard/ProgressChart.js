@@ -24,7 +24,7 @@ const data = [
 export default function ProgressChart() {
   return (
     <div className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-xl font-semibold mb-6 text-[#17513E]">
+      <h2 className="text-xl font-semibold mb-6 text-[#000000]">
         Expected vs Actual Progress
       </h2>
 
@@ -45,7 +45,7 @@ export default function ProgressChart() {
           <Line
             type="monotone"
             dataKey="expected"
-            stroke="#ef4444"
+            stroke="#14213d"
             strokeWidth={3}
             dot={{ r: 6 }}
             activeDot={{ r: 8 }}
@@ -61,7 +61,7 @@ export default function ProgressChart() {
           <Line
             type="monotone"
             dataKey="actual"
-            stroke="#14b8a6"
+            stroke="#fca311"
             strokeWidth={3}
             dot={{ r: 6 }}
             activeDot={{ r: 8 }}

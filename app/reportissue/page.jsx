@@ -25,10 +25,10 @@ export default function ReportIssuePage() {
     if (stored) setReportCount(Number(stored));
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (Construct) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [Construct.target.name]: Construct.target.value,
     });
   };
 
@@ -46,8 +46,8 @@ export default function ReportIssuePage() {
     );
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (Construct) => {
+    Construct.preventDefault();
 
     if (reportCount >= MAX_REPORTS) {
       alert("Maximum reports reached");
@@ -71,14 +71,11 @@ export default function ReportIssuePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F9FC] py-32 px-6">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-
-        <div className="mb-8">
-          <p className="text-[#4B8BBE]">Home / Report Issue</p>
-
-          <h1 className="text-4xl font-bold text-[#001F3F] mt-2">
+    <div className="min-h-screen bg-[#e5e5e5] p-10">
+      <div className="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl overflow-hidden border border-[#e5e5e5]">
+        <div className="p-10 border-b border-[#e5e5e5]">
+          <p className="text-[#14213d] font-bold uppercase tracking-widest text-xs">Citizen Accountability Node</p>
+          <h1 className="text-4xl font-bold text-[#000000] mt-2">
             Report Infrastructure Issue
           </h1>
 
@@ -89,13 +86,13 @@ export default function ReportIssuePage() {
 
         {/* Card */}
 
-        <div className="bg-white rounded-2xl shadow-lg border border-[#4B8BBE]/20 p-8">
+        <div className="bg-white rounded-2xl shadow-lg border border-[#14213d]/20 p-8">
           {/* Remaining */}
 
           <div className="mb-6">
             <p className="font-medium text-gray-600">
               Reports Remaining :
-              <span className="text-[#0A4D92] font-bold ml-2">
+              <span className="text-[#fca311] font-bold ml-2">
                 {MAX_REPORTS - reportCount}
               </span>
             </p>
@@ -149,8 +146,8 @@ export default function ReportIssuePage() {
 
             {/* Upload */}
 
-            <label className="border-2 border-dashed border-[#4B8BBE]/40 rounded-lg p-8 flex flex-col items-center cursor-pointer hover:bg-[#F5F9FC] transition">
-              <Upload className="text-[#4B8BBE] mb-2" />
+            <label className="border-2 border-dashed border-[#14213d]/40 rounded-lg p-8 flex flex-col items-center cursor-pointer hover:bg-[#e5e5e5]/20 transition">
+              <Upload className="text-[#14213d] mb-2" />
               Upload Evidence
               <input type="file" hidden />
             </label>
@@ -161,7 +158,7 @@ export default function ReportIssuePage() {
               <button
                 type="button"
                 onClick={getLocation}
-                className="flex items-center gap-2 bg-[#0A4D92] text-white px-5 py-2 rounded-lg hover:bg-[#1B6F9A]"
+                className="flex items-center gap-2 bg-[#14213d] text-white px-5 py-2 rounded-lg hover:bg-[#000000] transition-colors"
               >
                 <MapPin size={18} />
                 Capture Location
@@ -177,7 +174,7 @@ export default function ReportIssuePage() {
             {/* Severity */}
 
             <div>
-              <p className="font-medium mb-2 text-[#001F3F]">Severity</p>
+              <p className="font-medium mb-2 text-[#000000]">Severity</p>
 
               {["Low", "Medium", "High", "Critical"].map((level) => (
                 <label key={level} className="mr-6 text-gray-600">
@@ -199,14 +196,14 @@ export default function ReportIssuePage() {
               name="name"
               placeholder="Name (Optional)"
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:border-[#14213d] outline-none"
             />
 
             <input
               name="email"
               placeholder="Email (Optional)"
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded-lg p-3"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:border-[#14213d] outline-none"
             />
 
             {/* Declaration */}
@@ -220,7 +217,7 @@ export default function ReportIssuePage() {
 
             <button
               type="submit"
-              className="w-full bg-[#0A4D92] text-white py-3 rounded-lg font-semibold hover:bg-[#1B6F9A] transition"
+              className="w-full bg-[#000000] text-white py-3 rounded-lg font-semibold hover:bg-[#14213d] transition-colors"
             >
               Submit Issue
             </button>

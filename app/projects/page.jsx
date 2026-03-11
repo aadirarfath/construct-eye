@@ -45,13 +45,13 @@ export default function ProjectsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F9FC] pt-32 pb-20 px-8">
+    <div className="min-h-screen bg-[#e5e5e5] pt-32 pb-20 px-8">
       {/* HEADER */}
 
       <div className="max-w-7xl mx-auto mb-14 flex justify-between items-end">
         <div>
-          <p className="text-[#4B8BBE] text-sm mb-2">Infrastructure Monitoring</p>
-          <h1 className="text-4xl font-bold text-[#001F3F] mb-2">
+          <p className="text-[#fca311] text-sm mb-2 uppercase font-bold tracking-wider">Infrastructure Monitoring</p>
+          <h1 className="text-4xl font-bold text-[#000000] mb-2">
             District Command Center
           </h1>
           <p className="text-gray-600">
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
 
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="bg-white border-2 border-[#0A4D92] text-[#0A4D92] px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-[#0A4D92] hover:text-white transition-all shadow-sm active:scale-95"
+          className="bg-white border-2 border-[#14213d] text-[#14213d] px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-[#14213d] hover:text-white transition-all shadow-sm active:scale-95"
         >
           <AlertTriangle size={20} />
           Report Issue
@@ -87,13 +87,13 @@ rounded-xl
 
 p-6
 
-border border-[#4B8BBE]/20
+border border-[#e5e5e5]
 
 shadow-sm
 
 hover:shadow-lg
 
-hover:border-[#0A4D92]
+hover:border-[#14213d]
 
 transition
 
@@ -111,7 +111,7 @@ items-center
 
               <div>
                 <div className="flex items-center gap-3 mb-1">
-                  <MapPin size={18} className="text-[#4B8BBE]" />
+                  <MapPin size={18} className="text-[#14213d]" />
 
                   <h2
                     className="
@@ -120,9 +120,9 @@ text-lg
 
 font-semibold
 
-text-[#001F3F]
-
-group-hover:text-[#0A4D92]
+text-[#000000]
+ 
+group-hover:text-[#14213d]
 
 transition
 

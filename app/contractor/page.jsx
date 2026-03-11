@@ -59,19 +59,19 @@ export default function ContractorPage() {
     }
   }
 
-  function handleChange(e) {
+  function handleChange(Construct) {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [Construct.target.name]: Construct.target.value,
     });
   }
 
-  function handlePdfChange(e) {
-    setPdfFile(e.target.files[0]);
+  function handlePdfChange(Construct) {
+    setPdfFile(Construct.target.files[0]);
   }
 
-  async function createProject(e) {
-    e.preventDefault();
+  async function createProject(Construct) {
+    Construct.preventDefault();
     setIsDeploying(true); // Start loading
 
     try {
@@ -132,10 +132,10 @@ export default function ContractorPage() {
     }
   }
 
-  function handlePhotoSelect(e, projectId) {
+  function handlePhotoSelect(Construct, projectId) {
     setPhotoFiles({
       ...photoFiles,
-      [projectId]: e.target.files[0],
+      [projectId]: Construct.target.files[0],
     });
   }
 
@@ -191,8 +191,8 @@ export default function ContractorPage() {
     }
   }, [selectedProject]);
 
-  async function handleChatSubmit(e) {
-    e.preventDefault();
+  async function handleChatSubmit(Construct) {
+    Construct.preventDefault();
     if (!chatInput.trim() || !selectedProject) return;
 
     const userMessage = chatInput;
@@ -225,19 +225,19 @@ export default function ContractorPage() {
   }
 
   return (
-    <div className="flex h-screen bg-[#F5F9FC] overflow-hidden">
+    <div className="flex h-screen bg-[#e5e5e5] overflow-hidden">
       {/* LEFT SIDEBAR */}
-      <aside className="w-80 bg-[#001F3F] text-white flex flex-col shadow-xl">
+      <aside className="w-80 bg-[#000000] text-white flex flex-col shadow-xl">
         <div className="p-6 border-b border-white/10">
           <h1 className="text-xl font-bold flex items-center gap-2 italic">
-            <Layout size={24} /> e-Nirikshan
+            <Layout size={24} /> Construct-Eye
           </h1>
         </div>
 
         <div className="p-4">
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg"
+            className="w-full bg-[#14213d] hover:bg-[#14213d]/80 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg"
           >
             <Plus size={20} /> New Project
           </button>
@@ -252,7 +252,7 @@ export default function ContractorPage() {
               key={project.project_id}
               onClick={() => setSelectedProject(project)}
               className={`p-4 rounded-xl cursor-pointer transition-all border ${selectedProject?.project_id === project.project_id
-                  ? "bg-blue-500/20 border-blue-400 text-white"
+                  ? "bg-[#14213d] border-[#fca311] text-white"
                   : "bg-transparent border-transparent hover:bg-white/5 text-gray-300"
                 }`}
             >
@@ -269,7 +269,7 @@ export default function ContractorPage() {
           <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
             <header className="flex justify-between items-start">
               <div>
-                <h2 className="text-4xl font-bold text-[#001F3F]">
+                <h2 className="text-4xl font-bold text-[#000000]">
                   {selectedProject.project_name}
                 </h2>
                 <div className="flex items-center gap-4 mt-2 text-gray-500">
@@ -290,7 +290,7 @@ export default function ContractorPage() {
                 <a
                   href={selectedProject.contractor_report_pdf}
                   target="_blank"
-                  className="bg-white border border-gray-200 text-[#001F3F] px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-md transition-shadow flex items-center gap-2"
+                  className="bg-white border border-[#e5e5e5] text-[#000000] px-4 py-2 rounded-lg text-sm font-semibold hover:shadow-md transition-shadow flex items-center gap-2"
                 >
                   <FileText size={18} /> View Report
                 </a>
@@ -300,22 +300,22 @@ export default function ContractorPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="md:col-span-2 space-y-6">
                 {selectedProject.gemini_suggestions && (
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 p-6 rounded-2xl shadow-sm">
-                    <h3 className="font-bold text-blue-900 flex items-center gap-2 mb-4">
-                      <Zap size={20} className="fill-blue-500 text-blue-500" />{" "}
+                  <div className="bg-white border border-[#e5e5e5] p-6 rounded-2xl shadow-sm">
+                    <h3 className="font-bold text-[#000000] flex items-center gap-2 mb-4">
+                      <Zap size={20} className="fill-[#fca311] text-[#fca311]" />{" "}
                       AI Project Intelligence
                     </h3>
                     <div className="grid grid-cols-2 gap-4 mb-4">
-                      <div className="bg-white/60 p-3 rounded-lg">
-                        <p className="text-xs text-blue-600 font-bold uppercase">
+                      <div className="bg-[#e5e5e5]/30 p-3 rounded-lg">
+                        <p className="text-xs text-[#14213d] font-bold uppercase">
                           Status
                         </p>
                         <p className="text-sm font-semibold capitalize">
                           {selectedProject.gemini_suggestions.status}
                         </p>
                       </div>
-                      <div className="bg-white/60 p-3 rounded-lg">
-                        <p className="text-xs text-blue-600 font-bold uppercase">
+                      <div className="bg-[#e5e5e5]/30 p-3 rounded-lg">
+                        <p className="text-xs text-[#14213d] font-bold uppercase">
                           Risk Level
                         </p>
                         <p className="text-sm font-semibold capitalize">
@@ -328,16 +328,16 @@ export default function ContractorPage() {
                         <b>Progress Analysis:</b>{" "}
                         {selectedProject.gemini_suggestions.progress}
                       </p>
-                      <p className="text-sm text-gray-700 leading-relaxed italic border-l-4 border-blue-400 pl-3">
+                      <p className="text-sm text-gray-700 leading-relaxed italic border-l-4 border-[#14213d] pl-3">
                         <b>Recommendation:</b>{" "}
                         {selectedProject.gemini_suggestions.suggestion}
                       </p>
                     </div>
-                    <div className="mt-4 pt-4 border-t border-blue-100 flex justify-between items-center">
-                      <span className="text-xs text-blue-700 font-bold">
+                    <div className="mt-4 pt-4 border-t border-[#e5e5e5] flex justify-between items-center">
+                      <span className="text-xs text-[#14213d] font-bold">
                         ESTIMATED COMPLETION
                       </span>
-                      <span className="text-2xl font-black text-blue-900">
+                      <span className="text-2xl font-black text-[#000000]">
                         {selectedProject.gemini_suggestions.completionPercent}%
                       </span>
                     </div>
@@ -345,11 +345,11 @@ export default function ContractorPage() {
                 )}
 
                 {selectedProject.contractor_report_timeline?.length > 0 && (
-                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                    <h3 className="font-bold text-[#001F3F] mb-6 flex items-center gap-2">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e5e5e5]">
+                    <h3 className="font-bold text-[#000000] mb-6 flex items-center gap-2">
                       <Calendar size={20} /> Milestone Roadmap
                     </h3>
-                    <div className="space-y-6 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-100">
+                    <div className="space-y-6 relative before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#e5e5e5]">
                       {selectedProject.contractor_report_timeline.map(
                         (t, i) => {
                           const projectStart = new Date(
@@ -365,8 +365,8 @@ export default function ContractorPage() {
 
                           return (
                             <div key={i} className="relative pl-8">
-                              <div className="absolute left-0 top-1 w-4 h-4 rounded-full border-4 border-white bg-blue-500 shadow-sm" />
-                              <p className="font-bold text-sm text-[#001F3F]">
+                              <div className="absolute left-0 top-1 w-4 h-4 rounded-full border-4 border-white bg-[#14213d] shadow-sm" />
+                              <p className="font-bold text-sm text-[#000000]">
                                 {t.phase}
                               </p>
                               <p className="text-xs text-gray-500">
@@ -392,8 +392,8 @@ export default function ContractorPage() {
               </div>
 
               <div className="space-y-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                  <h3 className="font-bold text-[#001F3F] mb-4 flex items-center gap-2">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e5e5e5]">
+                  <h3 className="font-bold text-[#000000] mb-4 flex items-center gap-2">
                     <ImageIcon size={20} /> Site Evidence
                   </h3>
 
@@ -438,14 +438,14 @@ export default function ContractorPage() {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) =>
-                          handlePhotoSelect(e, selectedProject.project_id)
+                        onChange={(Construct) =>
+                          handlePhotoSelect(Construct, selectedProject.project_id)
                         }
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                       />
-                      <div className="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center group-hover:border-blue-400 transition-colors">
+                      <div className="border-2 border-dashed border-[#e5e5e5] rounded-xl p-4 text-center group-hover:border-[#14213d] transition-colors">
                         <ImageIcon
-                          className="mx-auto text-gray-400 group-hover:text-blue-500"
+                          className="mx-auto text-gray-400 group-hover:text-[#14213d]"
                           size={24}
                         />
                         <span className="text-xs text-gray-500 mt-1 block">
@@ -455,15 +455,15 @@ export default function ContractorPage() {
                     </div>
                     <button
                       onClick={() => uploadPhoto(selectedProject.project_id)}
-                      className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded-xl text-sm transition-colors shadow-sm"
+                      className="w-full bg-[#14213d] hover:bg-[#000000] text-white font-bold py-2 rounded-xl text-sm transition-colors shadow-sm"
                     >
                       Update AI via Photo
                     </button>
                   </div>
                 </div>
 
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-                  <h3 className="font-bold text-[#001F3F] mb-2 flex items-center gap-2">
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#e5e5e5]">
+                  <h3 className="font-bold text-[#000000] mb-2 flex items-center gap-2">
                     <Info size={18} /> Project Summary
                   </h3>
                   <p className="text-sm text-gray-600 leading-relaxed italic">
@@ -487,11 +487,11 @@ export default function ContractorPage() {
         <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end">
           {/* Chat Window */}
           {isChatOpen && (
-            <div className="bg-white border border-gray-200 shadow-2xl rounded-2xl w-80 sm:w-96 h-[32rem] mb-4 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in-50">
-              <div className="bg-[#001F3F] text-white p-4 flex justify-between items-center shadow-md pb-4 shrink-0 rounded-t-2xl">
+            <div className="bg-white border border-[#e5e5e5] shadow-2xl rounded-2xl w-80 sm:w-96 h-[32rem] mb-4 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 fade-in-50">
+              <div className="bg-[#000000] text-white p-4 flex justify-between items-center shadow-md pb-4 shrink-0 rounded-t-2xl">
                 <div>
                   <h3 className="font-bold flex items-center gap-2 text-sm">
-                    <Zap size={16} className="fill-blue-400 text-blue-400" /> DPR Assistant
+                    <Zap size={16} className="fill-[#14213d] text-[#14213d]" /> DPR Assistant
                   </h3>
                   <p className="text-[10px] text-gray-300 opacity-80 mt-1 truncate max-w-[200px]">{selectedProject.project_name}</p>
                 </div>
@@ -508,8 +508,8 @@ export default function ContractorPage() {
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                     <div
                       className={`max-w-[85%] rounded-2xl p-3 text-sm shadow-sm ${msg.role === 'user'
-                          ? 'bg-blue-600 text-white rounded-br-sm'
-                          : 'bg-white border border-gray-200 text-gray-800 rounded-bl-sm'
+                          ? 'bg-[#14213d] text-white rounded-br-sm'
+                          : 'bg-white border border-[#e5e5e5] text-gray-800 rounded-bl-sm'
                         }`}
                     >
                       {msg.content}
@@ -529,15 +529,15 @@ export default function ContractorPage() {
                 <input
                   type="text"
                   value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
+                  onChange={(Construct) => setChatInput(Construct.target.value)}
                   placeholder="Ask about the DPR..."
-                  className="flex-1 bg-gray-100 border-transparent focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-200 text-sm rounded-xl px-4 py-2 outline-none transition-all shadow-inner"
+                  className="flex-1 bg-gray-100 border-transparent focus:bg-white focus:border-[#14213d] focus:ring-2 focus:ring-[#fca311]/20 text-sm rounded-xl px-4 py-2 outline-none transition-all shadow-inner"
                   disabled={isChatLoading}
                 />
                 <button
                   type="submit"
                   disabled={isChatLoading || !chatInput.trim()}
-                  className="bg-blue-600 text-white p-2.5 rounded-xl hover:bg-blue-700 disabled:opacity-50 transition-colors shadow-sm shrink-0"
+                  className="bg-[#14213d] text-white p-2.5 rounded-xl hover:bg-[#000000] disabled:opacity-50 transition-colors shadow-sm shrink-0"
                 >
                   <Send size={16} />
                 </button>
@@ -548,12 +548,12 @@ export default function ContractorPage() {
           {/* Floating Chat Button */}
           <button
             onClick={() => setIsChatOpen(!isChatOpen)}
-            className={`${isChatOpen ? 'bg-gray-800 hover:bg-gray-900' : 'bg-blue-600 hover:bg-blue-700'} text-white shadow-xl shadow-blue-500/20 p-4 rounded-full transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-blue-300 relative`}
+            className={`${isChatOpen ? 'bg-gray-800 hover:bg-gray-900' : 'bg-[#14213d] hover:bg-[#000000]'} text-white shadow-xl shadow-[#14213d]/20 p-4 rounded-full transition-all hover:scale-105 active:scale-95 group focus:outline-none focus:ring-4 focus:ring-[#fca311]/30 relative`}
           >
             <MessageSquare size={26} className="group-hover:animate-pulse" />
             {!isChatOpen && (
               <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-300 opacity-75"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#fca311] opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white"></span>
               </span>
             )}
@@ -565,7 +565,7 @@ export default function ContractorPage() {
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <div className="bg-white w-full max-w-xl rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
-            <div className="p-6 bg-[#001F3F] text-white flex justify-between items-center">
+            <div className="p-6 bg-[#000000] text-white flex justify-between items-center">
               <h2 className="text-xl font-bold">Initialize New Project</h2>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -586,8 +586,8 @@ export default function ContractorPage() {
                 </label>
                 <input
                   name="project_name"
-                  placeholder="e.g. Skyline Bridge Restoration"
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  placeholder="Construct.g. Skyline Bridge Restoration"
+                  className="w-full border border-[#e5e5e5] p-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                   onChange={handleChange}
                   required
                 />
@@ -600,7 +600,7 @@ export default function ContractorPage() {
                 <input
                   name="location"
                   placeholder="City, Country"
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full border border-[#e5e5e5] p-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                   onChange={handleChange}
                   required
                 />
@@ -614,7 +614,7 @@ export default function ContractorPage() {
                   <input
                     type="date"
                     name="start_date"
-                    className="w-full border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full border border-[#e5e5e5] p-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                     onChange={handleChange}
                     required
                   />
@@ -626,7 +626,7 @@ export default function ContractorPage() {
                   <input
                     type="date"
                     name="end_date"
-                    className="w-full border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    className="w-full border border-[#e5e5e5] p-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                     onChange={handleChange}
                     required
                   />
@@ -641,7 +641,7 @@ export default function ContractorPage() {
                   name="project_summary"
                   placeholder="Key objectives and scope..."
                   rows={3}
-                  className="w-full border border-gray-200 p-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  className="w-full border border-[#e5e5e5] p-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                   onChange={handleChange}
                 />
               </div>
@@ -655,7 +655,7 @@ export default function ContractorPage() {
                     type="file"
                     accept="application/pdf"
                     onChange={handlePdfChange}
-                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
+                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#e5e5e5] file:text-[#14213d] hover:file:bg-[#fca311]"
                   />
                   {pdfFile && (
                     <p className="text-green-600 text-xs mt-2 font-bold italic">
@@ -668,7 +668,7 @@ export default function ContractorPage() {
               <button
                 type="submit"
                 disabled={isDeploying}
-                className="w-full bg-[#001F3F] text-white py-4 rounded-xl font-bold hover:bg-blue-900 transition-colors shadow-lg flex items-center justify-center gap-2"
+                className="w-full bg-[#14213d] text-white py-4 rounded-xl font-bold hover:bg-[#000000] transition-colors shadow-lg flex items-center justify-center gap-2"
               >
                 {isDeploying ? (
                   <>

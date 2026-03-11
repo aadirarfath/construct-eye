@@ -56,16 +56,16 @@ export default function CivilianDashboard() {
       .getPublicUrl(photo?.storage_path || "").data.publicUrl;
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-[#eef4ff] via-[#e3ecff] to-[#d6e4ff]">
+    <div className="min-h-screen flex bg-[#e5e5e5]">
       {/* SIDEBAR */}
 
-      <div className="w-80 bg-gradient-to-b from-[#001f4d] to-[#003a8c] text-white shadow-xl flex flex-col">
+      <div className="w-80 bg-[#000000] text-white shadow-xl flex flex-col">
         {/* Sidebar Heading */}
 
-        <div className="p-6 border-b border-blue-400">
+        <div className="p-6 border-b border-[#fca311]">
           <h1 className="text-xl font-bold tracking-wide">Civilian Portal</h1>
 
-          <p className="text-blue-200 text-xs mt-1">Infrastructure Projects</p>
+          <p className="text-[#e5e5e5] text-xs mt-1">Infrastructure Projects</p>
         </div>
 
         {/* Project List */}
@@ -79,13 +79,13 @@ export default function CivilianDashboard() {
 
               ${
                 selected.project_id === p.project_id
-                  ? "bg-blue-500 shadow-md"
-                  : "hover:bg-blue-600/40"
+                  ? "bg-[#14213d] shadow-md"
+                  : "hover:bg-[#14213d]/40"
               }`}
             >
               <div className="font-semibold text-sm">{p.project_name}</div>
 
-              <div className="text-xs text-blue-200">ID: {p.project_id}</div>
+              <div className="text-xs text-[#e5e5e5]">ID: {p.project_id}</div>
             </div>
           ))}
         </div>
@@ -96,7 +96,7 @@ export default function CivilianDashboard() {
       <div className="flex-1">
         {/* HEADER */}
 
-        <div className="bg-gradient-to-r from-[#001f4d] to-[#003a8c] text-white py-6 shadow border-b-4 border-blue-400">
+        <div className="bg-[#000000] text-white py-6 shadow border-b-4 border-[#fca311]">
           <h1 className="text-center text-2xl font-bold tracking-wide">
             Infrastructure Transparency Dashboard
           </h1>
@@ -105,16 +105,16 @@ export default function CivilianDashboard() {
         {/* DASHBOARD */}
 
         <div className="max-w-6xl mx-auto mt-8 px-6">
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-100 p-10">
+          <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-[#e5e5e5] p-10">
             {/* TITLE */}
 
-            <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-blue-100 pb-6 mb-8">
+            <div className="flex flex-col md:flex-row justify-between md:items-center border-b border-[#e5e5e5] pb-6 mb-8">
               <div>
-                <h2 className="text-3xl font-bold text-[#002855]">
+                <h2 className="text-3xl font-bold text-[#000000]">
                   Project ID: {selected.project_id} | {selected.project_name}
                 </h2>
 
-                <p className="flex items-center gap-2 text-blue-700 mt-2 font-medium">
+                <p className="flex items-center gap-2 text-[#14213d] mt-2 font-medium">
                   <MapPin size={16} />
 
                   {selected.location}
@@ -126,7 +126,7 @@ export default function CivilianDashboard() {
                   Status: {gemini?.status || "Unknown"}
                 </span>
 
-                <p className="text-xs text-blue-500 mt-3 italic flex items-center justify-end gap-1">
+                <p className="text-xs text-[#fca311] mt-3 italic flex items-center justify-end gap-1">
                   <Clock size={12} />
                   Last updated: {new Date().toDateString()}
                 </p>
@@ -137,38 +137,38 @@ export default function CivilianDashboard() {
               {/* LEFT */}
 
               <div>
-                <label className="text-xs font-bold uppercase text-blue-500 tracking-wider">
+                <label className="text-xs font-bold uppercase text-[#fca311] tracking-wider">
                   Physical Progress
                 </label>
 
                 <div className="flex items-center gap-5 mt-4 mb-10">
-                  <div className="flex-1 bg-blue-100 h-7 rounded-full overflow-hidden shadow-inner border border-blue-200">
+                  <div className="flex-1 bg-[#e5e5e5] h-7 rounded-full overflow-hidden shadow-inner border border-[#e5e5e5]">
                     <div
-                      className="bg-gradient-to-r from-[#002855] via-blue-600 to-blue-400 h-full transition-all duration-1000 shadow-md"
+                      className="bg-[#14213d] h-full transition-all duration-1000 shadow-md"
                       style={{ width: `${completion}%` }}
                     />
                   </div>
 
-                  <span className="font-bold text-2xl text-[#002855]">
+                  <span className="font-bold text-2xl text-[#000000]">
                     {completion}%
                   </span>
                 </div>
 
                 {/* SUMMARY */}
 
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 mb-10 shadow-sm">
-                  <h4 className="font-bold text-sm mb-3 uppercase text-blue-900 tracking-wide">
+                <div className="bg-white border border-[#e5e5e5] rounded-xl p-6 mb-10 shadow-sm">
+                  <h4 className="font-bold text-sm mb-3 uppercase text-[#14213d] tracking-wide">
                     Executive Summary
                   </h4>
 
-                  <p className="text-sm italic text-blue-900 leading-relaxed">
+                  <p className="text-sm italic text-[#000000] leading-relaxed">
                     "{gemini?.progress}"
                   </p>
                 </div>
 
                 {/* TIMELINE */}
 
-                <h4 className="font-bold text-sm mb-4 uppercase text-blue-800 border-b border-blue-200 pb-2">
+                <h4 className="font-bold text-sm mb-4 uppercase text-[#14213d] border-b border-[#e5e5e5] pb-2">
                   Milestone Timeline
                 </h4>
 
@@ -176,7 +176,7 @@ export default function CivilianDashboard() {
                   {timeline?.map((t, i) => (
                     <div
                       key={i}
-                      className="flex justify-between items-center bg-gradient-to-r from-blue-50 to-white border border-blue-200 rounded-xl px-5 py-3 hover:shadow-md hover:scale-[1.01] transition"
+                      className="flex justify-between items-center bg-white border border-[#e5e5e5] rounded-xl px-5 py-3 hover:shadow-md hover:scale-[1.01] transition"
                     >
                       {t.phase}
                     </div>
@@ -189,13 +189,13 @@ export default function CivilianDashboard() {
               <div>
                 <img
                   src={imageUrl}
-                  className="w-full mb-8 rounded-xl shadow-lg border border-blue-200"
+                  className="w-full mb-8 rounded-xl shadow-lg border border-[#e5e5e5]"
                 />
 
-                <table className="w-full text-sm border border-blue-200 rounded-xl overflow-hidden shadow-sm">
+                <table className="w-full text-sm border border-[#e5e5e5] rounded-xl overflow-hidden shadow-sm">
                   <tbody>
-                    <tr className="bg-blue-50">
-                      <td className="border p-4 font-semibold text-blue-900">
+                    <tr className="bg-[#e5e5e5]/20">
+                      <td className="border p-4 font-semibold text-[#000000]">
                         Start Date
                       </td>
 
@@ -203,15 +203,15 @@ export default function CivilianDashboard() {
                     </tr>
 
                     <tr>
-                      <td className="border p-4 font-semibold text-blue-900">
+                      <td className="border p-4 font-semibold text-[#000000]">
                         Expected Completion
                       </td>
 
                       <td className="border p-4">{selected.end_date}</td>
                     </tr>
 
-                    <tr className="bg-blue-50">
-                      <td className="border p-4 font-semibold text-blue-900">
+                    <tr className="bg-[#e5e5e5]/20">
+                      <td className="border p-4 font-semibold text-[#000000]">
                         Planned Progress
                       </td>
 
@@ -221,7 +221,7 @@ export default function CivilianDashboard() {
                     </tr>
 
                     <tr>
-                      <td className="border p-4 font-semibold text-blue-900">
+                      <td className="border p-4 font-semibold text-[#000000]">
                         Variance
                       </td>
 

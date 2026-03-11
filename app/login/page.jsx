@@ -13,8 +13,8 @@ export default function LoginPage() {
   const [error, setError] = useState(null);
   const router = useRouter();
 
-  async function handleLogin(e) {
-    e.preventDefault();
+  async function handleLogin(Construct) {
+    Construct.preventDefault();
     setLoading(true);
     setError(null);
 
@@ -33,15 +33,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F9FC] flex items-center justify-center p-6">
-      <div className="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
-        <div className="p-8 bg-[#001F3F] text-white text-center">
+    <div className="min-h-screen bg-[#e5e5e5] flex items-center justify-center p-6">
+      <div className="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-[#e5e5e5]">
+        <div className="p-8 bg-[#000000] text-white text-center">
           <Link href="/">
             <h2 className="text-3xl font-bold mb-2">
-              <span className="text-[#4B8BBE]">e</span>-Nirikshan
+              <span className="text-[#fca311]">Construct</span>-Eye
             </h2>
           </Link>
-          <p className="text-blue-200 text-sm">
+          <p className="text-[#e5e5e5] text-sm text-opacity-80">
             Contractor Authentication Portal
           </p>
         </div>
@@ -62,9 +62,9 @@ export default function LoginPage() {
               <input
                 type="email"
                 placeholder="contractor@gov.in"
-                className="w-full border border-gray-200 pl-10 pr-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                className="w-full border border-[#e5e5e5] pl-10 pr-4 py-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(Construct) => setEmail(Construct.target.value)}
                 required
               />
             </div>
@@ -79,9 +79,9 @@ export default function LoginPage() {
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full border border-gray-200 pl-10 pr-4 py-3 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                className="w-full border border-[#e5e5e5] pl-10 pr-4 py-3 rounded-xl focus:ring-2 focus:ring-[#14213d] outline-none transition-all"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(Construct) => setPassword(Construct.target.value)}
                 required
               />
             </div>
@@ -90,7 +90,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#001F3F] hover:bg-[#002d5c] text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
+            className="w-full bg-[#14213d] hover:bg-[#000000] text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2"
           >
             {loading ? (
               <Loader2 className="animate-spin" size={20} />

@@ -13,8 +13,8 @@ export default function KpiCards() {
           key={index}
           className="bg-white shadow rounded-xl p-6 text-center"
         >
-          <h2 className="text-2xl font-bold">{item.value}</h2>
-          <p className="text-gray-500 mt-2">{item.title}</p>
+          <h2 className="text-2xl font-bold text-[#14213d]">{item.value}</h2>
+          <p className="text-gray-500 mt-2 font-medium">{item.title}</p>
         </div>
       ))}
     </div>

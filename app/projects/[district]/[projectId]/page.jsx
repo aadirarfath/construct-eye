@@ -25,17 +25,17 @@ export default function ProjectDetailPage() {
 
   if (!project)
     return (
-      <div className="h-screen flex justify-center items-center bg-[#F5F9FC]">
+      <div className="h-screen flex justify-center items-center bg-[#e5e5e5]">
         Loading...
       </div>
     );
 
   return (
-    <div className="bg-[#F5F9FC] min-h-screen">
+    <div className="bg-[#e5e5e5] min-h-screen">
       {/* HEADER */}
 
-      <div className="bg-[#001F3F] text-white px-10 py-6 shadow">
-        <div className="text-sm opacity-70">Project Intelligence Dashboard</div>
+      <div className="bg-[#000000] text-white px-10 py-6 shadow">
+        <div className="text-sm text-[#fca311] font-bold uppercase">Project Intelligence Dashboard</div>
 
         <div className="text-3xl font-semibold mt-1">
           {project.project_name}
@@ -76,18 +76,18 @@ export default function ProjectDetailPage() {
 
           <div className="bg-white rounded-xl shadow p-6">
             <div className="flex justify-between mb-3">
-              <div className="font-semibold text-[#001F3F]">
+              <div className="font-semibold text-[#000000]">
                 Physical Progress
               </div>
 
-              <div className="font-semibold text-[#0074D9]">
+               <div className="font-semibold text-[#14213d]">
                 {project.progress}%
               </div>
             </div>
 
             <div className="w-full bg-gray-200 h-3 rounded">
               <div
-                className="bg-[#0074D9] h-3 rounded"
+                className="bg-[#14213d] h-3 rounded"
                 style={{
                   width: `${project.progress}%`,
                 }}
@@ -108,7 +108,7 @@ export default function ProjectDetailPage() {
           {/* DESCRIPTION */}
 
           <div className="bg-white rounded-xl shadow p-6">
-            <div className="font-semibold text-[#001F3F] mb-2">
+            <div className="font-semibold text-[#000000] mb-2">
               Project Description
             </div>
 
@@ -118,7 +118,7 @@ export default function ProjectDetailPage() {
           {/* MAP */}
 
           <div className="bg-white rounded-xl shadow p-6">
-            <div className="font-semibold text-[#001F3F] mb-4">
+            <div className="font-semibold text-[#000000] mb-4">
               Project Location
             </div>
 
@@ -136,7 +136,7 @@ export default function ProjectDetailPage() {
 function Section({ title, children }) {
   return (
     <div>
-      <div className="font-semibold text-[#001F3F] mb-3">{title}</div>
+      <div className="font-semibold text-[#000000] mb-3">{title}</div>
 
       <div className="space-y-3">{children}</div>
     </div>
@@ -148,7 +148,7 @@ function Info({ label, value }) {
     <div className="flex justify-between text-sm">
       <div className="text-gray-500">{label}</div>
 
-      <div className="font-medium text-[#001F3F] text-right">{value}</div>
+      <div className="font-medium text-[#000000] text-right">{value}</div>
     </div>
   );
 }
@@ -158,7 +158,7 @@ function BudgetCard({ title, value }) {
     <div className="bg-white shadow rounded-xl p-6">
       <div className="text-sm text-gray-500">{title}</div>
 
-      <div className="text-xl font-semibold text-[#001F3F] mt-1">₹{value}</div>
+      <div className="text-xl font-semibold text-[#000000] mt-1">₹{value}</div>
     </div>
   );
 }

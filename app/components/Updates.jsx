@@ -5,12 +5,10 @@ import {
   CheckCircle2,
   AlertCircle,
   Clock,
-  MapPin,
   CloudSun,
 } from "lucide-react";
 
 export default function Updates() {
-  // This data represents the JSON object you provided
   const projectData = {
     project_name: "Bridge Restoration",
     location: "Munnar",
@@ -18,7 +16,7 @@ export default function Updates() {
     ai: {
       status: "on_track",
       progress:
-        "Foundation work on the piers is complete, and a major section of the bridge's steel superstructure is being lifted into place.",
+        "Foundation work is complete. Steel sections of the bridge are now being lifted into position.",
       delayRisk: "medium",
       completionPercent: 40,
       expectedProgress: 24,
@@ -27,96 +25,101 @@ export default function Updates() {
 
   const updates = [
     {
-      title: `${projectData.project_name} - AI Progress Update`,
+      title: `${projectData.project_name} Progress`,
       type: projectData.ai.status === "on_track" ? "success" : "delay",
-      time: "Just Now",
+      time: "Now",
       description: projectData.ai.progress,
-      meta: `${projectData.ai.completionPercent}% Complete (Ahead of ${projectData.ai.expectedProgress}% target)`,
+      meta: `${projectData.ai.completionPercent}% complete`,
     },
     {
-      title: `Site Weather: ${projectData.location}`,
+      title: `Weather at ${projectData.location}`,
       type: "weather",
       time: "Live",
-      description: `Current condition is ${projectData.weather.description}. Ideal for superstructure lifting and heavy machinery operations.`,
-      meta: "Clear Skies",
+      description: `Current condition: ${projectData.weather.description}.`,
+      meta: "Clear sky",
     },
     {
-      title: "Risk Assessment: Medium",
+      title: "Risk Check",
       type: "delay",
       time: "Analysis",
       description:
-        "Rigging and alignment for heavy lifts identified as primary focus area for the current phase.",
-      meta: "Safety Protocol Active",
+        "Heavy lifting operations require careful alignment and monitoring.",
+      meta: "Medium risk",
     },
   ];
 
   return (
-    <section className="bg-[#F5F9FC] py-24 px-8">
+    <section className="bg-[#ffffff] py-24 px-8">
       <div className="max-w-4xl mx-auto">
+
+        {/* Header */}
         <div className="flex items-center justify-between mb-12">
           <div>
-            <h2 className="text-4xl font-black text-[#001F3F] flex items-center gap-3">
-              <Bell className="text-blue-500 fill-blue-500/20" size={32} />
-              Project Intelligence
+            <h2 className="text-4xl font-bold text-[#000000] flex items-center gap-3">
+              <Bell className="text-[#fca311]" size={30} />
+              Project Updates
             </h2>
-            <p className="text-gray-500 mt-2 font-medium">
-              Live updates for{" "}
-              <span className="text-blue-600">
-                ID #23: {projectData.location}
-              </span>
+
+            <p className="text-[#14213d] mt-2">
+              Live updates for {projectData.location}
             </p>
           </div>
         </div>
 
+        {/* Updates */}
         <div className="space-y-4">
           {updates.map((update, i) => (
             <div
               key={i}
-              className="group bg-white border border-gray-100 p-6 rounded-2xl shadow-sm hover:shadow-md hover:border-blue-200 transition-all duration-300 flex items-start gap-5"
+              className="bg-[#ffffff] border border-[#e5e5e5] p-6 rounded-2xl flex items-start gap-5"
             >
+              {/* Icon */}
               <div
                 className={`mt-1 p-3 rounded-xl ${
                   update.type === "delay"
-                    ? "bg-amber-50 text-amber-600"
+                    ? "bg-[#fca311]/10 text-[#fca311]"
                     : update.type === "success"
-                      ? "bg-green-50 text-green-600"
-                      : update.type === "weather"
-                        ? "bg-blue-50 text-blue-500"
-                        : "bg-blue-50 text-blue-600"
+                    ? "bg-[#14213d]/10 text-[#14213d]"
+                    : update.type === "weather"
+                    ? "bg-[#14213d]/10 text-[#14213d]"
+                    : "bg-[#14213d]/10 text-[#14213d]"
                 }`}
               >
                 {update.type === "delay" ? (
-                  <AlertCircle size={24} />
+                  <AlertCircle size={22} />
                 ) : update.type === "success" ? (
-                  <CheckCircle2 size={24} />
+                  <CheckCircle2 size={22} />
                 ) : update.type === "weather" ? (
-                  <CloudSun size={24} />
+                  <CloudSun size={22} />
                 ) : (
-                  <Clock size={24} />
+                  <Clock size={22} />
                 )}
               </div>
 
+              {/* Content */}
               <div className="flex-1">
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-bold text-lg text-[#001F3F] group-hover:text-blue-700 transition-colors">
+                  <h3 className="font-semibold text-[#000000]">
                     {update.title}
                   </h3>
-                  <span className="text-xs font-bold text-gray-400 uppercase tracking-widest">
+
+                  <span className="text-xs text-[#14213d] uppercase">
                     {update.time}
                   </span>
                 </div>
-                <p className="text-gray-600 text-sm leading-relaxed mb-3">
+
+                <p className="text-[#14213d] text-sm leading-relaxed mb-3">
                   {update.description}
                 </p>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black px-2 py-1 bg-gray-100 text-gray-500 rounded uppercase tracking-tighter">
-                    {update.meta}
-                  </span>
-                </div>
+
+                <span className="text-xs font-semibold px-2 py-1 bg-[#e5e5e5] text-[#000000] rounded">
+                  {update.meta}
+                </span>
               </div>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   );

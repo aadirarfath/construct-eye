@@ -21,17 +21,16 @@ export default function Navbar() {
         flex items-center gap-8
         px-8 py-4
         rounded-full
-        bg-[#001F3F]/80
+        bg-[#000000]/80
         backdrop-blur-xl
-        border border-[#4B8BBE]/30
+        border border-[#14213d]/40
         shadow-xl
       "
       >
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
-          <span className="text-[#4B8BBE]">e</span>
-
-          <span className="text-white">-Nirikshan</span>
+          <span className="text-[#fca311]">Construct</span>
+          <span className="text-white">-Eye</span>
         </Link>
 
         {/* Links */}
@@ -50,7 +49,7 @@ export default function Navbar() {
                   ${
                     isActive
                       ? "text-white"
-                      : "text-gray-300 hover:text-[#4B8BBE]"
+                      : "text-[#e5e5e5] hover:text-white"
                   }
                 `}
               >
@@ -66,7 +65,7 @@ export default function Navbar() {
                     -translate-x-1/2
                     w-1.5 h-1.5
                     rounded-full
-                    bg-[#4B8BBE]
+                    bg-[#fca311]
                   "
                   />
                 )}
@@ -79,12 +78,14 @@ export default function Navbar() {
         <Link
           href="/reportissue"
           className="
-            bg-[#0A4D92]
+            bg-[#14213d]
             text-white
             px-5 py-2
             rounded-full
             font-medium
-            hover:bg-[#1B6F9A]
+            hover:bg-[#000000]
+            border border-[#14213d]
+            hover:border-[#fca311]
             transition
             duration-300
           "

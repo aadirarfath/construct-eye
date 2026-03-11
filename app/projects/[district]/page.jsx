@@ -37,15 +37,15 @@ export default function DistrictProjectsPage() {
   const getProgressColor = (status) => {
     if (status === "delayed") return "bg-red-500";
     if (status === "risk") return "bg-yellow-500";
-    return "bg-blue-600";
+    return "bg-[#14213d]";
   };
 
   return (
-    <div className="bg-[#F5F9FC] min-h-screen pt-28">
+    <div className="bg-[#e5e5e5] min-h-screen pt-28">
       {/* HEADER */}
 
-      <div className="bg-[#001F3F] text-white px-12 py-10 shadow mb-10">
-        <p className="text-sm text-[#4B8BBE] mb-1">District Command Center</p>
+      <div className="bg-[#000000] text-white px-12 py-10 shadow mb-10">
+        <p className="text-sm text-[#fca311] mb-1 font-bold uppercase">District Command Center</p>
 
         <h1 className="text-4xl font-bold capitalize">
           {district} Infrastructure
@@ -61,12 +61,12 @@ export default function DistrictProjectsPage() {
       <div className="max-w-7xl mx-auto px-10 pb-16 space-y-6">
         {projects.map((project) => (
           <Link key={project.id} href={`/projects/${district}/${project.id}`}>
-            <div className="bg-white border border-[#001F3F]/10 rounded-xl px-8 py-7 hover:shadow-lg hover:border-[#0074D9] transition cursor-pointer">
+            <div className="bg-white border border-[#e5e5e5] rounded-xl px-8 py-7 hover:shadow-lg hover:border-[#14213d] transition cursor-pointer">
               <div className="grid grid-cols-5 items-center gap-6">
                 {/* LEFT */}
 
                 <div className="col-span-2">
-                  <h2 className="text-lg font-semibold text-[#001F3F]">
+                  <h2 className="text-lg font-semibold text-[#000000]">
                     {project.project_name}
                   </h2>
 
@@ -81,7 +81,7 @@ export default function DistrictProjectsPage() {
 
                 {/* BUDGET */}
 
-                <div className="font-semibold text-[#0A4D92]">
+                <div className="font-semibold text-[#14213d]">
                   {project.budget}
                 </div>
 

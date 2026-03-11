@@ -74,8 +74,8 @@ export default function ReportIssueModal({ isOpen, onClose }) {
     }
   }, [formData.district, allProjects]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (Construct) => {
+    setFormData({ ...formData, [Construct.target.name]: Construct.target.value });
   };
 
   const fetchLocation = () => {
@@ -163,8 +163,8 @@ export default function ReportIssueModal({ isOpen, onClose }) {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (Construct) => {
+    Construct.preventDefault();
     if (reportCount >= MAX_REPORTS) {
       alert("Daily report limit reached.");
       return;
@@ -244,7 +244,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
       <div className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
         {/* Header */}
-        <div className="p-6 bg-[#001F3F] text-white flex justify-between items-center shrink-0 border-b border-white/10">
+        <div className="p-6 bg-[#000000] text-white flex justify-between items-center shrink-0 border-b border-white/10">
           <div className="flex items-center gap-2">
             <AlertTriangle className="text-yellow-400" size={24} />
             <h2 className="text-xl font-bold">Official Site Report</h2>
@@ -261,19 +261,19 @@ export default function ReportIssueModal({ isOpen, onClose }) {
         <div className="flex-1 overflow-y-auto p-8">
           {isLoading ? (
             <div className="h-64 flex flex-col items-center justify-center text-gray-400 gap-4">
-              <Loader2 className="animate-spin text-[#0A4D92]" size={40} />
+              <Loader2 className="animate-spin text-[#14213d]" size={40} />
               <p className="font-medium">Loading project command center...</p>
             </div>
           ) : (
             <>
-              <div className="mb-8 flex justify-between items-center bg-[#0A4D92]/5 p-4 rounded-2xl border border-[#0A4D92]/10">
+              <div className="mb-8 flex justify-between items-center bg-[#e5e5e5] p-4 rounded-2xl border border-[#e5e5e5]">
                 <p className="text-sm font-semibold text-gray-700">
                   Daily Report Limit:
-                  <span className="text-[#0A4D92] font-black ml-2 text-base">
+                  <span className="text-[#fca311] font-black ml-2 text-base">
                     {MAX_REPORTS - reportCount}
                   </span>
                 </p>
-                <span className="text-[10px] font-bold bg-[#0A4D92] text-white px-3 py-1 rounded-full uppercase tracking-widest">Citizen Portal</span>
+                <span className="text-[10px] font-bold bg-[#14213d] text-white px-3 py-1 rounded-full uppercase tracking-widest">Citizen Portal</span>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
@@ -285,7 +285,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                       required
                       value={formData.district}
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#0A4D92] outline-none transition-all font-medium appearance-none bg-gray-50"
+                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#14213d] outline-none transition-all font-medium appearance-none bg-gray-50"
                     >
                       <option value="">Select District</option>
                       {districts.map((d) => (
@@ -302,7 +302,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                       value={formData.project}
                       onChange={handleChange}
                       disabled={!formData.district}
-                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#0A4D92] outline-none transition-all font-medium appearance-none bg-gray-50 disabled:opacity-50"
+                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#14213d] outline-none transition-all font-medium appearance-none bg-gray-50 disabled:opacity-50"
                     >
                       <option value="">{formData.district ? "Select Project" : "Awaiting District..."}</option>
                       {filteredProjects.map((p) => (
@@ -319,7 +319,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                       name="issueType"
                       required
                       onChange={handleChange}
-                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#0A4D92] outline-none font-medium bg-gray-50"
+                      className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#14213d] outline-none font-medium bg-gray-50"
                     >
                       <option value="">Nature of Issue</option>
                       <option>Construction Stoppage</option>
@@ -343,7 +343,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                             className="peer opacity-0 absolute"
                             onChange={handleChange}
                           />
-                          <div className="text-center py-2.5 text-[10px] font-black rounded-xl cursor-pointer peer-checked:bg-[#0A4D92] peer-checked:text-white text-gray-400 transition-all hover:bg-white uppercase tracking-tighter">
+                          <div className="text-center py-2.5 text-[10px] font-black rounded-xl cursor-pointer peer-checked:bg-[#14213d] peer-checked:text-white text-gray-400 transition-all hover:bg-white uppercase tracking-tighter">
                             {level}
                           </div>
                         </label>
@@ -360,13 +360,13 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                     rows="3"
                     placeholder="Document technical or physical anomalies..."
                     onChange={handleChange}
-                    className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#0A4D92] outline-none font-medium bg-gray-50"
+                    className="w-full border-2 border-gray-100 p-4 rounded-2xl focus:border-[#14213d] outline-none font-medium bg-gray-50"
                   />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-xs font-black text-gray-400 uppercase tracking-widest">Live Geotagged Capture</label>
-                  <div className="relative rounded-3xl overflow-hidden border-2 border-dashed border-[#0A4D92]/20 bg-gray-50 h-56 flex flex-col items-center justify-center">
+                  <div className="relative rounded-3xl overflow-hidden border-2 border-dashed border-[#14213d]/20 bg-gray-50 h-56 flex flex-col items-center justify-center">
                     {isCameraActive ? (
                       <div className="absolute inset-0 z-10 bg-black">
                         <video 
@@ -379,7 +379,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                           <button
                             type="button"
                             onClick={takePhoto}
-                            className="bg-white text-[#001F3F] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-transform"
+                            className="bg-white text-[#000000] w-14 h-14 rounded-full flex items-center justify-center shadow-2xl active:scale-90 transition-transform"
                           >
                             <Camera size={28} />
                           </button>
@@ -392,7 +392,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                           <button
                             type="button"
                             onClick={startCamera}
-                            className="bg-white text-[#0A4D92] px-6 py-2 rounded-xl font-bold flex items-center gap-2"
+                            className="bg-white text-[#14213d] px-6 py-2 rounded-xl font-bold flex items-center gap-2"
                           >
                             <RefreshCw size={18} /> Retake
                           </button>
@@ -404,10 +404,10 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                         onClick={startCamera}
                         className="flex flex-col items-center gap-3 transition-all hover:scale-105"
                       >
-                        <div className="bg-[#0A4D92] text-white p-5 rounded-full shadow-xl">
+                        <div className="bg-[#14213d] text-white p-5 rounded-full shadow-xl">
                           <Camera size={32} />
                         </div>
-                        <span className="text-sm font-black text-[#0A4D92] uppercase tracking-widest">Initialize Camera</span>
+                        <span className="text-sm font-black text-[#14213d] uppercase tracking-widest">Initialize Camera</span>
                         <p className="text-[10px] text-gray-400 font-bold uppercase tracking-tighter italic">Required: Live Physical Evidence</p>
                       </button>
                     )}
@@ -469,7 +469,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                       <input
                         name="name"
                         onChange={handleChange}
-                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#001F3F] focus:border-[#0A4D92] outline-none bg-transparent"
+                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#000000] focus:border-[#14213d] outline-none bg-transparent"
                       />
                     </div>
                     <div className="space-y-1">
@@ -478,7 +478,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                         name="email"
                         type="email"
                         onChange={handleChange}
-                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#001F3F] focus:border-[#0A4D92] outline-none bg-transparent"
+                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#000000] focus:border-[#14213d] outline-none bg-transparent"
                       />
                     </div>
                     <div className="space-y-1">
@@ -489,15 +489,15 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                         required
                         placeholder="+91"
                         onChange={handleChange}
-                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#001F3F] focus:border-[#0A4D92] outline-none bg-transparent"
+                        className="w-full border-b-2 border-gray-100 p-2 font-bold text-[#000000] focus:border-[#14213d] outline-none bg-transparent"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-[#0A4D92]/5 p-5 rounded-3xl border border-[#0A4D92]/10">
+                <div className="bg-[#e5e5e5] p-5 rounded-3xl border border-[#e5e5e5]">
                   <label className="flex gap-4 text-xs font-bold text-gray-600 cursor-pointer items-start">
-                    <input type="checkbox" required className="mt-1 w-5 h-5 rounded-md border-2 border-[#0A4D92]/20" />
+                    <input type="checkbox" required className="mt-1 w-5 h-5 rounded-md border-2 border-[#14213d]/20" />
                     <span className="leading-relaxed">I confirm that this report is being filed based on immediate physical observation and that the geotagged evidence is authentic.</span>
                   </label>
                 </div>
@@ -505,7 +505,7 @@ export default function ReportIssueModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={isSubmitting || isLocating || !formData.latitude}
-                  className="w-full bg-[#001F3F] text-white py-5 rounded-3xl font-black text-base hover:bg-[#0A4D92] transition-all shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-[#000000] text-white py-5 rounded-3xl font-black text-base hover:bg-[#14213d] transition-all shadow-2xl flex items-center justify-center gap-3 uppercase tracking-widest active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>

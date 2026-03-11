@@ -26,19 +26,19 @@ export default function Hero() {
       </video>
 
       {/* Dark navy overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#001F3F]/90 via-[#001F3F]/70 to-transparent" />
+      {/* <div className="absolute inset-0 bg-gradient-to-r from-[#001F3F]/90 via-[#001F3F]/70 to-transparent" /> */}
 
-      {/* Brand blue tint */}
-      <div className="absolute inset-0 bg-[#0A4D92]/30" />
+      {/* Brand black/prussian-blue tint */}
+      <div className="absolute inset-0 bg-[#000000]/40" />
 
       {/* CONTENT */}
       <div className="relative z-10 max-w-3xl text-left">
-        <p className="text-[#4B8BBE] text-lg mb-4 font-medium">
+        <p className="text-[#fca311] text-lg mb-4 font-bold uppercase tracking-widest">
           Public Monitoring Platform
         </p>
 
         <h1 className="text-6xl md:text-7xl font-black text-white mb-6">
-          e-Nirikshan
+          Construct-Eye
         </h1>
 
         <p className="text-gray-200 text-lg mb-10 max-w-xl">
@@ -47,17 +47,17 @@ export default function Hero() {
         </p>
 
         {/* SEARCH */}
-        <div className="flex max-w-xl backdrop-blur-xl bg-white/95 rounded-full overflow-hidden shadow-2xl border border-[#4B8BBE]/40">
+        <div className="flex max-w-xl backdrop-blur-xl bg-white/95 rounded-full overflow-hidden shadow-2xl border border-[#14213d]/40">
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(Construct) => setQuery(Construct.target.value)}
             placeholder="Search any public project"
-            className="flex-1 px-6 py-4 outline-none text-[#001F3F]"
+            className="flex-1 px-6 py-4 outline-none text-[#000000]"
           />
 
           <button
             onClick={handleSearch}
-            className="bg-[#0A4D92] text-white px-8 font-semibold hover:bg-[#1B6F9A]"
+            className="bg-[#14213d] text-white px-8 font-semibold hover:bg-[#000000] transition-colors"
           >
             Search
           </button>

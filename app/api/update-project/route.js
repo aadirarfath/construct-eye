@@ -85,9 +85,9 @@ try{
 
 news = await getNews(project.location);
 
-}catch(e){
+}catch(Construct){
 
-console.log("News error:", e.message);
+console.log("News error:", Construct.message);
 
 }
 
@@ -95,9 +95,9 @@ try{
 
 weather = await getWeather(project.location);
 
-}catch(e){
+}catch(Construct){
 
-console.log("Weather error:", e.message);
+console.log("Weather error:", Construct.message);
 
 }
 

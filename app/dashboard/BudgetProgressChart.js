@@ -30,7 +30,7 @@ export default function BudgetProgressChart() {
           <CartesianGrid
             strokeDasharray="3 3"
             vertical={false}
-            stroke="#e5e7eb"
+            stroke="#e5e5e5"
           />
 
           <XAxis
@@ -56,14 +56,14 @@ export default function BudgetProgressChart() {
           {/* Budget Bar - Light Blue */}
           <Bar
             dataKey="budget"
-            fill="#93c5fd"
+            fill="#e5e5e5"
             radius={[8, 8, 0, 0]}
           />
 
           {/* Progress Bar - Dark Blue */}
           <Bar
             dataKey="progress"
-            fill="#2563eb"
+            fill="#14213d"
             radius={[8, 8, 0, 0]}
           />
         </BarChart>
